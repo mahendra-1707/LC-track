@@ -1,0 +1,107 @@
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4;
+}
+
+h1 {
+    text-align: center;
+    color: #252b5c;
+}
+
+p {
+    text-align: center;
+    font-size: 16px;
+}
+
+#map {
+    height: 500px;
+    width: 100%;
+    border: 2px solid #252b5c;
+    border-radius: 10px;
+}
+
+#locationBtn {
+    display: block;
+    margin: 15px auto;
+    padding: 12px 20px;
+    background-color: #252b5c;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#locationBtn:hover {
+    background-color: #414b91;
+}
+
+#routeControls {
+    text-align: center;
+    margin: 20px auto;
+}
+
+#routeControls label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+#destination {
+    padding: 10px;
+    border-radius: 5px;
+    margin: 5px;
+    font-size: 15px;
+}
+
+#routeControls button {
+    padding: 10px 18px;
+    background-color: #16834a;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#distance {
+    font-weight: bold;
+    color: #252b5c;
+    margin-top: 12px;
+}
+
+#routeOptions {
+    margin: 15px auto;
+    max-width: 500px;
+}
+
+.route-option {
+    background-color: white;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    padding: 12px;
+    margin: 10px 0;
+    cursor: pointer;
+    text-align: left;
+}
+
+.route-option:hover {
+    border-color: #252b5c;
+}
+
+.route-option.selected {
+    border-color: #16834a;
+    background-color: #eaf7ef;
+}
+
+.route-option button {
+    margin-top: 8px;
+    padding: 8px 14px;
+    background-color: #252b5c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}

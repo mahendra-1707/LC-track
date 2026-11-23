@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LC Tracking System</title>
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet"
+          href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+    <!-- Our CSS file -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1>LC Tracking System</h1>
+    <p>Railway Level Crossing Map - Tumakuru</p>
+
+    <button id="locationBtn" onclick="getMyLocation()">
+    📍 My Current Location
+</button>
+<div id="routeControls">
+
+    <label for="destination">Select Railway Crossing:</label>
+
+    <select id="destination">
+        <option value="">Choose a crossing</option>
+        <option value="0">Baddihalli</option>
+        <option value="1">Maidala</option>
+        <option value="2">Mallasandra</option>
+        <option value="3">Pandithanahalli</option>
+        <option value="4">Heggere</option>
+    </select>
+
+    <button onclick="findRoute()">Find Route</button>
+
+    <p id="distance"></p>
+    <div id="routeOptions"></div>
+
+</div>
+
+<div id="map"></div>
+    <!-- Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <!-- Our JavaScript file -->
+    <script src="script.js"></script>
+
+</body>
+</html>
