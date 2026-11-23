@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>LC Tracking System | Tumakuru</title>
+
+    <style>
+
+/* GLOBAL STYLING */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: #0b1220;
+    color: #f8fafc;
+}
+
+/* NAVIGATION BAR */
+
+nav {
+    background-color: #111c3a;
+    color: white;
+    padding: 20px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.2);
+}
+
+.logo {
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.logo span {
+    color: #3b82f6;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+}
+
+nav ul li a {
+    color: #f8fafc;
+    text-decoration: none;
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+nav ul li a:hover {
+    color: #60a5fa;
+}
+
+/* HERO SECTION */
+
+.hero {
+    background: linear-gradient(120deg, #111c3a, #1e3a70, #172554);
+    color: white;
+    padding: 110px 8%;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.hero h1 span {
+    color: #60a5fa;
+}
+
+.hero p {
+    font-size: 18px;
+    margin-bottom: 35px;
+    color: #dbeafe;
+    line-height: 1.7;
+}
+
+.hero button {
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    padding: 15px 32px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.hero button:hover {
+    background-color: #60a5fa;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(59,130,246,0.3);
+}
+
+/* MAIN CROSSING SECTION */
+
+.container {
+    padding: 65px 8%;
+    background-color: #0b1220;
+}
+
+.container h2 {
+    font-size: 30px;
+    margin-bottom: 15px;
+    color: #f8fafc;
+}
+
+.subtitle {
+    color: #94a3b8;
+    margin-bottom: 30px;
+    line-height: 1.7;
+}
+
+/* SEARCH BOX */
+
+.search-box {
+    margin-bottom: 35px;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 16px;
+    border: 1px solid #334155;
+    border-radius: 9px;
+    font-size: 16px;
+    outline: none;
+    background-color: #172554;
+    color: white;
+    transition: 0.3s;
+}
+
+.search-box input::placeholder {
+    color: #94a3b8;
+}
+
+.search-box input:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
+}
+
+/* GATE CARDS */
+
+.gate-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
+}
+
+.gate-card {
+    background: #172554;
+    padding: 28px;
+    border-radius: 14px;
+    border: 1px solid #263b68;
+    box-shadow: 0 5px 18px rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+
+.gate-card:hover {
+    transform: translateY(-7px);
+    border-color: #3b82f6;
+    box-shadow: 0 10px 25px rgba(59,130,246,0.15);
+}
+
+.gate-card h3 {
+    font-size: 21px;
+    margin-bottom: 12px;
+    color: #f8fafc;
+}
+
+.gate-card p {
+    color: #cbd5e1;
+    margin-bottom: 15px;
+}
+
+.updated {
+    font-size: 12px;
+    color: #94a3b8;
+    margin-top: 15px;
+}
+
+/* GATE STATUS */
+
+.status {
+    display: inline-block;
+    background: #fef3c7;
+    color: #92400e;
+    padding: 7px 13px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+/* VIEW DETAILS LINK */
+
+.details-link {
+    display: inline-block;
+    margin-top: 17px;
+    color: #60a5fa;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.details-link:hover {
+    color: #93c5fd;
+    text-decoration: underline;
+}
+
+/* ABOUT SECTION */
+
+#about {
+    background-color: #111c3a;
+    border-top: 1px solid #263b68;
+}
+
+#about .subtitle {
+    max-width: 850px;
+    font-size: 16px;
+}
+
+/* FOOTER */
+
+footer {
+    background-color: #080e1a;
+    color: #94a3b8;
+    text-align: center;
+    padding: 28px;
+    border-top: 1px solid #263b68;
+}
+
+footer p {
+    font-size: 14px;
+}
+
+/* RESPONSIVE DESIGN */
+
+@media (max-width: 768px) {
+
+    nav {
+        flex-direction: column;
+        gap: 18px;
+        padding: 18px 5%;
+    }
+
+    nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 18px;
+    }
+
+    .hero {
+        padding: 80px 6%;
+    }
+
+    .hero h1 {
+        font-size: 36px;
+    }
+
+    .hero p {
+        font-size: 16px;
+    }
+
+    .container {
+        padding: 45px 6%;
+    }
+
+    .container h2 {
+        font-size: 25px;
+    }
+
+}
+
+@media (max-width: 480px) {
+
+    .logo {
+        font-size: 23px;
+    }
+
+    .hero h1 {
+        font-size: 30px;
+    }
+
+    .gate-container {
+        grid-template-columns: 1fr;
+    }
+
+}
+/* HOMEPAGE ENTRANCE ANIMATIONS */
+
+@keyframes fadeSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* HERO ANIMATIONS */
+
+.hero h1 {
+    animation: fadeSlideUp 1s ease forwards;
+}
+
+.hero p {
+    opacity: 0;
+    animation: fadeSlideUp 1s ease 0.3s forwards;
+}
+
+.hero button {
+    opacity: 0;
+    animation: fadeSlideUp 1s ease 0.6s forwards;
+}
+
+/* CROSSING SECTION */
+
+#crossings h2 {
+    animation: fadeSlideUp 0.8s ease forwards;
+}
+
+#crossings .subtitle {
+    animation: fadeSlideUp 0.8s ease 0.2s both;
+}
+
+.search-box {
+    animation: fadeSlideUp 0.8s ease 0.3s both;
+}
+
+/* CROSSING CARDS */
+
+.gate-card {
+    opacity: 0;
+    animation: fadeSlideUp 0.8s ease forwards;
+}
+
+/* SCROLL-TRIGGERED CROSSING CARD ANIMATION */
+
+.gate-card {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.gate-card.show-card {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.gate-card.show-card:hover {
+    transform: translateY(-7px);
+}
+
+/* ACCESSIBILITY */
+
+@media (prefers-reduced-motion: reduce) {
+    .hero h1,
+    .hero p,
+    .hero button,
+    #crossings h2,
+    #crossings .subtitle,
+    .search-box,
+    .gate-card {
+        animation: none;
+        opacity: 1;
+        transform: none;
+    }
+}
+/* HERO TRAIN ANIMATION */
+
+.hero {
+    overflow: hidden;
+}
+
+.hero-train-area {
+    position: relative;
+    height: 110px;
+    margin-top: 45px;
+    overflow: hidden;
+}
+
+.hero-track {
+    position: absolute;
+    bottom: 15px;
+    width: 100%;
+    height: 8px;
+    background: repeating-linear-gradient(
+        90deg,
+        #94a3b8 0px,
+        #94a3b8 4px,
+        transparent 4px,
+        transparent 28px
+    );
+    border-top: 3px solid #cbd5e1;
+    border-bottom: 3px solid #cbd5e1;
+}
+
+.hero-train {
+    position: absolute;
+    bottom: 25px;
+    left: -400px;
+    display: flex;
+    align-items: flex-end;
+    animation: heroTrainMove 14s linear infinite;
+}
+
+.hero-coach,
+.hero-engine {
+    height: 48px;
+    width: 105px;
+    background: #2563eb;
+    border: 3px solid #60a5fa;
+    border-radius: 7px 7px 3px 3px;
+    position: relative;
+    margin-right: 3px;
+}
+
+.hero-coach {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.hero-coach span,
+.hero-engine span {
+    width: 20px;
+    height: 19px;
+    background: #dbeafe;
+    border: 2px solid #172554;
+    border-radius: 3px;
+}
+
+.hero-engine {
+    width: 115px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.engine-front {
+    position: absolute;
+    right: -13px;
+    bottom: 0;
+    width: 13px;
+    height: 32px;
+    background: #1d4ed8;
+    border-radius: 0 8px 3px 0;
+}
+
+@keyframes heroTrainMove {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(calc(100vw + 500px));
+    }
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+    .hero-train-area {
+        margin-top: 35px;
+    }
+
+    .hero-coach {
+        width: 75px;
+    }
+
+    .hero-engine {
+        width: 85px;
+    }
+
+    .hero-coach span,
+    .hero-engine span {
+        width: 15px;
+    }
+}
+</style>
+
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+
+    <nav>
+
+        <div class="logo">
+            LC <span>Tracking System</span>
+        </div>
+
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#crossings">Gate Status</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#">Login</a></li>
+        </ul>
+
+    </nav>
+
+
+    <!-- Hero Section -->
+
+    <section class="hero">
+
+        <h1>Know Before <span>You Go.</span></h1>
+
+        <p>
+            Check railway gate status, explore alternative routes
+            and plan your journey smarter.
+        </p>
+
+        <button onclick="document.getElementById('crossings').scrollIntoView({behavior:'smooth'})">
+            Check Gate Status
+        </button>
+<!-- HERO MOVING TRAIN -->
+
+<div class="hero-train-area">
+
+    <div class="hero-track"></div>
+
+    <div class="hero-train">
+
+        <div class="hero-coach">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <div class="hero-coach">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <div class="hero-coach">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <div class="hero-engine">
+            <span></span>
+            <div class="engine-front"></div>
+        </div>
+
+    </div>
+
+</div>
+    </section>
+
+
+    <!-- Railway Crossings -->
+
+    <section class="container" id="crossings">
+
+        <h2>Railway Crossings – Tumakuru</h2>
+
+        <p class="subtitle">
+            Check the latest reported status of selected railway crossings.
+        </p>
+
+        <div class="search-box">
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search railway crossing..."
+                onkeyup="searchGates()"
+            >
+
+        </div>
+
+
+        <div class="gate-container" id="gateContainer">
+
+    <div class="gate-card">
+        <h3>Mydala</h3>
+        <p>Railway Crossing</p>
+        <span class="status">Status Pending</span>
+        <a href="details.html?crossing=Mydala" class="details-link">View Details →</a>
+    </div>
+
+    <div class="gate-card">
+        <h3>Baddihalli</h3>
+        <p>Railway Crossing</p>
+        <span class="status">Status Pending</span>
+        <a href="details.html?crossing=Baddihalli" class="details-link">View Details →</a>
+    </div>
+
+    <div class="gate-card">
+        <h3>Pandithanahalli</h3>
+        <p>Railway Crossing</p>
+        <span class="status">Status Pending</span>
+        <a href="details.html?crossing=Pandithanahalli" class="details-link">View Details →</a>
+    </div>
+
+    <div class="gate-card">
+        <h3>Heggare</h3>
+        <p>Railway Crossing</p>
+        <span class="status">Status Pending</span>
+        <a href="details.html?crossing=Heggare" class="details-link">View Details →</a>
+    </div>
+
+    <div class="gate-card">
+        <h3>Mallasandra</h3>
+        <p>Railway Crossing</p>
+        <span class="status">Status Pending</span>
+        <a href="details.html?crossing=Mallasandra" class="details-link">View Details →</a>
+    </div>
+
+</div>
+
+    </section>
+
+
+    <!-- About Section -->
+
+    <section class="container" id="about">
+
+        <h2>About LC Tracking System</h2>
+
+        <p class="subtitle">
+            LC Tracking System is a web-based railway level crossing
+            tracking system designed to help commuters in Tumakuru.
+            Our aim is to reduce unnecessary waiting time by
+            providing railway gate status information and
+            alternative route suggestions.
+        </p>
+
+    </section>
+
+
+    <!-- Footer -->
+
+    <footer>
+
+        <p>© 2026 LC Tracking System | Tumakuru Railway Crossing Tracking System</p>
+
+    </footer>
+
+
+    <script>
+
+        function searchGates() {
+
+            let input = document.getElementById("searchInput").value.toLowerCase();
+
+            let cards = document.getElementsByClassName("gate-card");
+
+            for (let i = 0; i < cards.length; i++) {
+
+                let name = cards[i].getElementsByTagName("h3")[0].innerText.toLowerCase();
+
+                if (name.includes(input)) {
+                    cards[i].style.display = "";
+                } else {
+                    cards[i].style.display = "none";
+                }
+
+            }
+
+        }
+// SCROLL ANIMATION FOR CROSSING CARDS
+
+const cards = document.querySelectorAll(".gate-card");
+
+const observer = new IntersectionObserver((entries, observer) => {
+
+    entries.forEach(entry => {
+
+        if (entry.isIntersecting) {
+
+            entry.target.classList.add("show-card");
+
+            observer.unobserve(entry.target);
+
+        }
+
+    });
+
+}, {
+    threshold: 0.2
+});
+
+cards.forEach(card => {
+    observer.observe(card);
+});
+    </script>
+
+</body>
+
+</html>

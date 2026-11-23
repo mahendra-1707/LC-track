@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Crossing Details | LC Tracking System</title>
+
+    <style>
+
+/* GLOBAL STYLING */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: #0b1220;
+    color: #f8fafc;
+}
+
+/* NAVIGATION */
+
+nav {
+    background-color: #111c3a;
+    color: white;
+    padding: 20px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.2);
+}
+
+.logo {
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.logo span {
+    color: #3b82f6;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+nav a:hover {
+    color: #60a5fa;
+}
+
+/* PAGE HEADING */
+
+.heading {
+    background: linear-gradient(120deg, #111c3a, #1e3a70, #172554);
+    color: white;
+    padding: 65px 8%;
+    text-align: center;
+}
+
+.heading h1 {
+    font-size: 38px;
+    margin-bottom: 15px;
+}
+
+.heading p {
+    color: #dbeafe;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* MAIN CONTENT */
+
+.container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.details-card {
+    background: #111c3a;
+    padding: 35px;
+    border-radius: 14px;
+    border: 1px solid #263b68;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+}
+
+.details-card h2 {
+    margin-bottom: 25px;
+    font-size: 25px;
+    color: #f8fafc;
+}
+
+/* CROSSING INFORMATION */
+
+.info {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.info-box {
+    background: #172554;
+    padding: 22px;
+    border-radius: 10px;
+    border: 1px solid #263b68;
+    transition: 0.3s;
+}
+
+.info-box:hover {
+    border-color: #3b82f6;
+}
+
+.info-box p {
+    color: #94a3b8;
+    margin-bottom: 12px;
+    font-size: 14px;
+}
+
+.info-box h3 {
+    font-size: 19px;
+    color: #f8fafc;
+}
+
+/* GATE STATUS */
+
+.status {
+    display: inline-block;
+    background: #fef3c7;
+    color: #92400e;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.status.open {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.status.closed {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.status.pending {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+/* ACTION BUTTONS */
+
+.actions {
+    margin-top: 35px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.btn {
+    padding: 14px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.primary {
+    background: #3b82f6;
+    color: white;
+}
+
+.primary:hover {
+    background: #60a5fa;
+    transform: translateY(-3px);
+}
+
+.secondary {
+    background: #263b68;
+    color: white;
+    border: 1px solid #3b82f6;
+}
+
+.secondary:hover {
+    background: #3b82f6;
+    transform: translateY(-3px);
+}
+
+/* ALTERNATIVE ROUTES */
+
+#alternativeRoutesBox {
+    background: #172554 !important;
+    border: 1px solid #3b82f6;
+    color: #f8fafc;
+    border-radius: 10px !important;
+}
+
+#alternativeRoutesBox h3 {
+    color: #60a5fa;
+}
+
+#alternativeRoutesBox p {
+    color: #cbd5e1 !important;
+    line-height: 1.6;
+}
+
+/* BACK TO HOME */
+
+.back {
+    display: inline-block;
+    margin-top: 25px;
+    color: #60a5fa;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.back:hover {
+    color: #93c5fd;
+}
+
+/* UPCOMING TRAINS */
+
+.train-section {
+    margin-top: 30px;
+}
+
+.train-section h2 {
+    margin-bottom: 20px;
+}
+
+.train-description {
+    color: #94a3b8;
+    line-height: 1.7;
+    margin-bottom: 25px;
+}
+
+.train-box {
+    background: #172554;
+    padding: 25px;
+    border-radius: 10px;
+    border: 1px solid #263b68;
+    border-left: 5px solid #3b82f6;
+}
+
+.train-box h3 {
+    margin-bottom: 12px;
+    font-size: 19px;
+}
+
+.train-box p {
+    color: #cbd5e1;
+    line-height: 1.6;
+}
+
+.train-update {
+    color: #94a3b8;
+    font-size: 13px;
+    margin-top: 18px;
+}
+
+/* TRAIN INFORMATION CARDS */
+
+.train-details {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.train-item {
+    background: #111c3a;
+    padding: 20px;
+    border-radius: 9px;
+    border: 1px solid #263b68;
+    transition: 0.3s;
+}
+
+.train-item:hover {
+    border-color: #3b82f6;
+    transform: translateY(-3px);
+}
+
+.train-item p {
+    color: #94a3b8;
+    margin-bottom: 10px;
+}
+
+.train-item h4 {
+    color: #f8fafc;
+    font-size: 16px;
+}
+
+/* FOOTER */
+
+footer {
+    background: #080e1a;
+    color: #94a3b8;
+    text-align: center;
+    padding: 28px;
+    margin-top: 60px;
+    border-top: 1px solid #263b68;
+}
+
+/* RESPONSIVE DESIGN */
+
+@media (max-width: 600px) {
+
+    nav {
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .info {
+        grid-template-columns: 1fr;
+    }
+
+    .heading h1 {
+        font-size: 28px;
+    }
+
+    .details-card {
+        padding: 22px;
+    }
+
+    .train-details {
+        grid-template-columns: 1fr;
+    }
+
+    .actions {
+        flex-direction: column;
+    }
+
+    .btn {
+        text-align: center;
+    }
+
+}
+
+/* ANIMATED RAILWAY SCENE */
+
+.railway-animation {
+    background: #080e1a;
+    padding: 35px 0 25px;
+    overflow: hidden;
+    text-align: center;
+    border-top: 1px solid #263b68;
+    border-bottom: 1px solid #263b68;
+}
+
+.scene-title {
+    color: #60a5fa;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 25px;
+}
+
+.railway-scene {
+    height: 150px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* TRACK */
+
+.track {
+    position: absolute;
+    bottom: 22px;
+    width: 100%;
+    height: 12px;
+    background: #94a3b8;
+    border-top: 4px solid #cbd5e1;
+    border-bottom: 4px solid #cbd5e1;
+}
+
+.sleepers {
+    position: absolute;
+    top: -9px;
+    width: 100%;
+    height: 30px;
+    background: repeating-linear-gradient(
+        90deg,
+        transparent 0px,
+        transparent 18px,
+        #64748b 18px,
+        #64748b 25px
+    );
+}
+
+/* TRAIN */
+
+.train {
+    position: absolute;
+    bottom: 34px;
+    left: 0;
+    display: flex;
+    align-items: flex-end;
+    animation: trainMove 12s linear infinite;
+    z-index: 3;
+}
+
+.train-body {
+    width: 230px;
+    height: 65px;
+    background: #2563eb;
+    border: 3px solid #60a5fa;
+    border-radius: 12px 12px 5px 5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px;
+    position: relative;
+}
+
+.train-window {
+    width: 38px;
+    height: 27px;
+    background: #dbeafe;
+    border: 3px solid #172554;
+    border-radius: 5px;
+}
+
+.train-front {
+    position: absolute;
+    right: -20px;
+    bottom: 0;
+    width: 20px;
+    height: 42px;
+    background: #1d4ed8;
+    border-radius: 0 12px 5px 0;
+}
+
+.wheel {
+    position: absolute;
+    bottom: -12px;
+    width: 22px;
+    height: 22px;
+    background: #cbd5e1;
+    border: 5px solid #334155;
+    border-radius: 50%;
+}
+
+.wheel-one {
+    left: 30px;
+}
+
+.wheel-two {
+    left: 105px;
+}
+
+.wheel-three {
+    left: 180px;
+}
+
+@keyframes trainMove {
+    0%, 18% {
+        transform: translateX(-300px);
+    }
+
+    78%, 100% {
+        transform: translateX(110vw);
+    }
+}
+
+/* CROSSING GATE */
+
+.gate-post {
+    position: absolute;
+    left: 62%;
+    bottom: 34px;
+    width: 12px;
+    height: 80px;
+    background: #94a3b8;
+    border-radius: 5px;
+    z-index: 4;
+}
+
+.gate-arm {
+    position: absolute;
+    left: 5px;
+    bottom: 65px;
+    width: 125px;
+    height: 12px;
+    background: repeating-linear-gradient(
+        90deg,
+        #f8fafc 0px,
+        #f8fafc 20px,
+        #ef4444 20px,
+        #ef4444 40px
+    );
+    border: 1px solid #cbd5e1;
+    border-radius: 5px;
+    transform-origin: left center;
+    transform: rotate(-65deg);
+    animation: gateMove 12s ease-in-out infinite;
+}
+
+/* WARNING LIGHT */
+
+.warning-light {
+    position: absolute;
+    top: 8px;
+    left: -6px;
+    width: 22px;
+    height: 22px;
+    background: #ef4444;
+    border-radius: 50%;
+    box-shadow: 0 0 12px #ef4444;
+    animation: warningBlink 0.7s infinite alternate;
+}
+
+@keyframes warningBlink {
+    from {
+        opacity: 0.4;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* GATE MOVEMENT */
+
+@keyframes gateMove {
+    0%, 18% {
+        transform: rotate(-65deg);
+    }
+
+    25%, 72% {
+        transform: rotate(0deg);
+    }
+
+    82%, 100% {
+        transform: rotate(-65deg);
+    }
+}
+
+/* ANIMATION CAPTION */
+
+.animation-note {
+    color: #94a3b8;
+    font-size: 13px;
+    margin-top: 18px;
+}
+
+/* MOBILE ADJUSTMENT */
+
+@media (max-width: 600px) {
+
+    .scene-title {
+        font-size: 17px;
+    }
+
+    .train-body {
+        width: 180px;
+    }
+
+    .train-window {
+        width: 28px;
+    }
+
+    .wheel-two {
+        left: 85px;
+    }
+
+    .wheel-three {
+        left: 145px;
+    }
+
+    .gate-post {
+        left: 65%;
+    }
+
+    .gate-arm {
+        width: 85px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+
+    <nav>
+
+        <div class="logo">
+            LC <span>Tracking System</span>
+        </div>
+
+        <a href="index.html">Home</a>
+
+    </nav>
+
+
+    <!-- Heading -->
+
+    <section class="heading">
+
+        <h1 id="crossingName">Mydala Railway Crossing</h1>
+
+        <p>Railway Level Crossing Information – Tumakuru</p>
+
+    </section>
+
+
+    <!-- Crossing Information -->
+
+    <section class="container">
+
+        <div class="details-card">
+
+            <h2>Crossing Information</h2>
+
+            <div class="info">
+
+                <div class="info-box">
+                    <p>Crossing Name</p>
+                    <h3 id="name">Mydala</h3>
+                </div>
+
+                <div class="info-box">
+                      <p>LC Number</p>
+                      <h3 id="lcNumber">Loading...</h3>
+                </div>
+
+                <div class="info-box">
+                    <p>Current Gate Status</p>
+                   <span class="status pending" id="gateStatus">Status Pending</span>
+                </div>
+
+                <div class="info-box">
+                    <p>Last Updated</p>
+                    <h3>Not Available</h3>
+                </div>
+
+            </div>
+
+
+            <!-- Action Buttons -->
+
+            <div class="actions">
+
+                <button class="btn primary">
+                    View Location
+                </button>
+
+                <button class="btn secondary" id="alternativeRoutesBtn">
+                    Alternative Routes
+                </button>
+
+            </div>
+<div id="alternativeRoutesBox" style="display: none; margin-top: 20px; padding: 20px; background: #172554; border-radius: 10px;"></div>
+            
+
+    <h3>Alternative Routes</h3>
+
+    <p style="margin-top: 10px; color: #64748b;">
+        Alternative routes will be displayed here once map integration is completed.
+    </p>
+
+</div>
+
+
+            <a href="index.html" class="back">
+                ← Back to Home
+            </a>
+
+        </div>
+
+    </section>
+
+    <!-- ANIMATED RAILWAY SCENE -->
+
+<section class="railway-animation">
+
+    <div class="scene-title">
+        <span>🚆</span> Railway Crossing in Motion <span>🚧</span>
+    </div>
+
+    <div class="railway-scene">
+
+        <!-- Railway tracks -->
+        <div class="track">
+            <div class="sleepers"></div>
+        </div>
+
+        <!-- Moving train -->
+        <div class="train">
+
+            <div class="train-body">
+                <div class="train-window"></div>
+                <div class="train-window"></div>
+                <div class="train-window"></div>
+                <div class="train-window"></div>
+                <div class="train-front"></div>
+            </div>
+
+            <div class="wheel wheel-one"></div>
+            <div class="wheel wheel-two"></div>
+            <div class="wheel wheel-three"></div>
+
+        </div>
+
+        <!-- Railway crossing gate -->
+        <div class="gate-post">
+
+            <div class="warning-light"></div>
+
+            <div class="gate-arm"></div>
+
+        </div>
+
+    </div>
+
+    <p class="animation-note">
+        A safer journey begins with knowing the railway crossing status.
+    </p>
+
+</section>
+
+
+    <!-- Upcoming Trains Section -->
+
+    <section class="container train-section">
+
+        <div class="details-card">
+
+            <h2>🚆 Upcoming Trains Near This Crossing</h2>
+
+            <p class="train-description">
+                Get information about trains approaching
+                this railway level crossing.
+            </p>
+
+            <div class="train-box">
+
+                <div class="train-details">
+
+    <div class="train-item">
+        <p>Train Name</p>
+        <h4>Not Available</h4>
+    </div>
+
+    <div class="train-item">
+        <p>Train Number</p>
+        <h4>Not Available</h4>
+    </div>
+
+    <div class="train-item">
+        <p>Direction</p>
+        <h4>Not Available</h4>
+    </div>
+
+    <div class="train-item">
+        <p>Expected Arrival Time</p>
+        <h4>Not Available</h4>
+    </div>
+
+</div>
+            </div>
+
+            <p class="train-update">
+                Last updated: Not Available
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- Footer -->
+
+    <footer>
+
+        <p>© 2026 LC Tracking System | Tumakuru</p>
+
+    </footer>
+
+<script>
+    const params = new URLSearchParams(window.location.search);
+    const crossing = params.get("crossing");
+
+    const crossings = [
+        "Mydala",
+        "Baddihalli",
+        "Pandithanahalli",
+        "Heggare",
+        "Mallasandra"
+    ];
+
+    const selectedCrossing = crossings.find(
+        name => name.toLowerCase() === (crossing || "").toLowerCase()
+    );
+
+    const crossingName = selectedCrossing || "Mydala";
+
+    const lcNumbers = {
+    "Mydala": "LC 35",
+    "Baddihalli": "LC 38",
+    "Pandithanahalli": "LC 33",
+    "Heggare": "LC 44",
+    "Mallasandra": "LC 46"
+};
+
+document.getElementById("lcNumber").textContent =
+    lcNumbers[crossingName];
+
+    document.getElementById("crossingName").textContent =
+        crossingName + " Railway Crossing";
+
+    document.getElementById("name").textContent =
+        crossingName;
+
+    document.title = crossingName + " | LC Tracking System";
+    document.getElementById("alternativeRoutesBtn").addEventListener("click", function() {
+
+    const routeBox = document.getElementById("alternativeRoutesBox");
+
+    if (routeBox.style.display === "none") {
+        routeBox.style.display = "block";
+    } else {
+        routeBox.style.display = "none";
+    }
+
+});
+</script>
+</body>
+
+</html>
