@@ -7,6 +7,13 @@
 
     <title>Crossing Details | LC Tracking System</title>
 
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet"
+          href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+    <!-- Scoped Map Component CSS -->
+    <link rel="stylesheet" href="map-widget.css">
+
     <style>
 
 /* GLOBAL STYLING */
@@ -205,20 +212,16 @@ nav a:hover {
 
 /* ALTERNATIVE ROUTES */
 
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    flex-wrap: wrap;
+}
+
 #alternativeRoutesBox {
-    background: #172554 !important;
-    border: 1px solid #3b82f6;
-    color: #f8fafc;
-    border-radius: 10px !important;
-}
-
-#alternativeRoutesBox h3 {
-    color: #60a5fa;
-}
-
-#alternativeRoutesBox p {
-    color: #cbd5e1 !important;
-    line-height: 1.6;
+    margin-top: 24px;
+    scroll-margin-top: 120px;
 }
 
 /* BACK TO HOME */
@@ -608,7 +611,10 @@ footer {
             LC <span>Tracking System</span>
         </div>
 
-        <a href="index.html">Home</a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="index.html#map-section">Map &amp; Routes</a>
+        </div>
 
     </nav>
 
@@ -661,25 +667,19 @@ footer {
 
             <div class="actions">
 
-                <button class="btn primary">
+                <button type="button" class="btn primary" id="viewLocationBtn">
                     View Location
                 </button>
 
-                <button class="btn secondary" id="alternativeRoutesBtn">
+                <button type="button" class="btn secondary" id="alternativeRoutesBtn">
                     Alternative Routes
                 </button>
 
             </div>
-<div id="alternativeRoutesBox" style="display: none; margin-top: 20px; padding: 20px; background: #172554; border-radius: 10px;"></div>
-            
 
-    <h3>Alternative Routes</h3>
-
-    <p style="margin-top: 10px; color: #64748b;">
-        Alternative routes will be displayed here once map integration is completed.
-    </p>
-
-</div>
+            <div id="alternativeRoutesBox" style="display: none;">
+                <div id="lcMapMount"></div>
+            </div>
 
 
             <a href="index.html" class="back">
@@ -797,11 +797,15 @@ footer {
 
     </footer>
 
+<!-- Leaflet JavaScript -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="map-component.js"></script>
 <script>
+(function () {
     const params = new URLSearchParams(window.location.search);
     const crossing = params.get("crossing");
 
-    const crossings = [
+    const crossingList = [
         "Mydala",
         "Baddihalli",
         "Pandithanahalli",
@@ -809,41 +813,91 @@ footer {
         "Mallasandra"
     ];
 
-    const selectedCrossing = crossings.find(
+    const selectedCrossing = crossingList.find(
         name => name.toLowerCase() === (crossing || "").toLowerCase()
     );
 
     const crossingName = selectedCrossing || "Mydala";
 
     const lcNumbers = {
-    "Mydala": "LC 35",
-    "Baddihalli": "LC 38",
-    "Pandithanahalli": "LC 33",
-    "Heggare": "LC 44",
-    "Mallasandra": "LC 46"
-};
+        "Mydala": "LC 35",
+        "Baddihalli": "LC 38",
+        "Pandithanahalli": "LC 33",
+        "Heggare": "LC 44",
+        "Mallasandra": "LC 46"
+    };
 
-document.getElementById("lcNumber").textContent =
-    lcNumbers[crossingName];
-
-    document.getElementById("crossingName").textContent =
-        crossingName + " Railway Crossing";
-
-    document.getElementById("name").textContent =
-        crossingName;
-
+    document.getElementById("lcNumber").textContent = lcNumbers[crossingName];
+    document.getElementById("crossingName").textContent = crossingName + " Railway Crossing";
+    document.getElementById("name").textContent = crossingName;
     document.title = crossingName + " | LC Tracking System";
-    document.getElementById("alternativeRoutesBtn").addEventListener("click", function() {
 
+    window.__lcDetailsCrossing = crossingName;
+
+    if (window.LCMapComponent) {
+        window.LCMapComponent.mount("lcMapMount", {
+            compact: true,
+            title: crossingName + " (" + lcNumbers[crossingName] + ") — Map & Alternative Routes",
+            subtitle: "Inspect " + crossingName + " on the map or click My Current Location and Find Route to compare driving routes.",
+            fullMapHref: "index.html?crossing=" + encodeURIComponent(crossingName) + "#map-section",
+            standaloneHref: "../maps-location/index.html?crossing=" + encodeURIComponent(crossingName)
+        });
+    }
+})();
+</script>
+<script src="../maps-location/script.js"></script>
+<script>
+(function () {
+    const crossingName = window.__lcDetailsCrossing || "Mydala";
     const routeBox = document.getElementById("alternativeRoutesBox");
+    const viewLocationBtn = document.getElementById("viewLocationBtn");
+    const altRoutesBtn = document.getElementById("alternativeRoutesBtn");
 
-    if (routeBox.style.display === "none") {
-        routeBox.style.display = "block";
-    } else {
-        routeBox.style.display = "none";
+    function ensureDestinationSelected() {
+        if (!window.LCMap) return;
+        const idx = window.LCMap.resolveCrossingIndex(crossingName);
+        const destSelect = document.getElementById("destination");
+        if (idx !== -1 && destSelect && destSelect.value === "") {
+            destSelect.value = String(idx);
+        }
     }
 
-});
+    function openMapPanel(forceFocusCrossing) {
+        routeBox.style.display = "block";
+        ensureDestinationSelected();
+
+        function syncMapDisplay() {
+            if (!window.LCMap) return;
+            window.LCMap.invalidateSize();
+            const hasRoutes = window.LCMap.getAvailableRoutes().length > 0;
+            if (forceFocusCrossing || !hasRoutes) {
+                window.LCMap.focusCrossing(crossingName);
+            }
+        }
+
+        requestAnimationFrame(syncMapDisplay);
+        setTimeout(syncMapDisplay, 80);
+        routeBox.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    ensureDestinationSelected();
+
+    if (viewLocationBtn) {
+        viewLocationBtn.addEventListener("click", function () {
+            openMapPanel(true);
+        });
+    }
+
+    if (altRoutesBtn) {
+        altRoutesBtn.addEventListener("click", function () {
+            if (routeBox.style.display === "none" || routeBox.style.display === "") {
+                openMapPanel(false);
+            } else {
+                routeBox.style.display = "none";
+            }
+        });
+    }
+})();
 </script>
 </body>
 

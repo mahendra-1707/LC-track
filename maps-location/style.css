@@ -1,17 +1,17 @@
 
-body {
+body.standalone-map-page {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 20px;
     background-color: #f4f4f4;
 }
 
-h1 {
+body.standalone-map-page h1 {
     text-align: center;
     color: #252b5c;
 }
 
-p {
+body.standalone-map-page p {
     text-align: center;
     font-size: 16px;
 }
@@ -79,6 +79,7 @@ p {
 
 .route-option {
     background-color: white;
+    color: #1e293b;
     border: 2px solid #ddd;
     border-radius: 8px;
     padding: 12px;

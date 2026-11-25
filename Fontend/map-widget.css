@@ -1,0 +1,338 @@
+/* Scoped integration styling for the embedded LC Tracking Map component.
+   Preserves all core map functionality while matching the dark-navy frontend theme
+   and ensuring responsive rendering without CSS leakage. */
+
+.lc-map-widget {
+    background: #111c3a;
+    border: 1px solid #263b68;
+    border-radius: 14px;
+    padding: 24px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+    color: #f8fafc;
+}
+
+.lc-map-widget.lc-map-compact {
+    padding: 18px;
+}
+
+.lc-map-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-bottom: 18px;
+    margin-bottom: 18px;
+    border-bottom: 1px solid #263b68;
+}
+
+.lc-map-toolbar-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #f8fafc;
+}
+
+.lc-map-toolbar-sub {
+    font-size: 13px;
+    color: #94a3b8;
+    margin-top: 4px;
+}
+
+.lc-map-toolbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.lc-map-reset-btn {
+    background: #172554;
+    color: #93c5fd;
+    border: 1px solid #3b82f6;
+    border-radius: 6px;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.lc-map-reset-btn:hover {
+    background: #3b82f6;
+    color: #ffffff;
+}
+
+.lc-map-standalone-link {
+    color: #60a5fa;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #263b68;
+    background: #0b1220;
+    transition: 0.2s;
+}
+
+.lc-map-standalone-link:hover {
+    color: #ffffff;
+    border-color: #3b82f6;
+}
+
+.lc-map-controls-bar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 18px;
+    padding: 18px;
+    background: #172554;
+    border: 1px solid #263b68;
+    border-radius: 10px;
+}
+
+.lc-map-widget #locationBtn {
+    margin: 0;
+    padding: 11px 20px;
+    background-color: #3b82f6;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.lc-map-widget #locationBtn:hover:not(:disabled) {
+    background-color: #60a5fa;
+}
+
+.lc-map-widget #locationBtn:disabled,
+.lc-map-widget #findRouteBtn:disabled {
+    opacity: 0.7;
+    cursor: wait;
+}
+
+.lc-map-widget #routeControls {
+    width: 100%;
+    margin: 0;
+    text-align: center;
+}
+
+.lc-map-widget #routeControls label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #e2e8f0;
+    font-size: 14px;
+}
+
+.lc-map-route-inputs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.lc-map-widget #destination {
+    padding: 10px 14px;
+    border-radius: 7px;
+    border: 1px solid #334155;
+    background-color: #0b1220;
+    color: #f8fafc;
+    margin: 0;
+    font-size: 15px;
+    min-width: 220px;
+    max-width: 100%;
+}
+
+.lc-map-widget #destination:focus {
+    outline: none;
+    border-color: #3b82f6;
+}
+
+.lc-map-widget #findRouteBtn {
+    padding: 10px 18px;
+    background-color: #16a34a;
+    color: #ffffff;
+    border: none;
+    border-radius: 7px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.lc-map-widget #findRouteBtn:hover:not(:disabled) {
+    background-color: #15803d;
+}
+
+.lc-map-status {
+    margin-top: 12px;
+    font-size: 13px;
+    color: #94a3b8;
+    line-height: 1.5;
+    min-height: 18px;
+}
+
+.lc-map-status.is-loading {
+    color: #93c5fd;
+}
+
+.lc-map-status.is-success {
+    color: #86efac;
+}
+
+.lc-map-status.is-error {
+    color: #fca5a5;
+}
+
+.lc-map-status.is-info {
+    color: #bae6fd;
+}
+
+.lc-map-widget #distance {
+    font-weight: bold;
+    color: #86efac;
+    margin-top: 10px;
+    font-size: 15px;
+}
+
+.lc-map-widget #routeOptions {
+    margin: 14px auto 0;
+    max-width: 680px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 12px;
+}
+
+.lc-map-widget .route-option {
+    background-color: #0b1220;
+    color: #f8fafc;
+    border: 2px solid #334155;
+    border-radius: 8px;
+    padding: 14px;
+    cursor: pointer;
+    text-align: left;
+    line-height: 1.5;
+    transition: 0.2s;
+}
+
+.lc-map-widget .route-option:hover {
+    border-color: #60a5fa;
+}
+
+.lc-map-widget .route-option.selected {
+    border-color: #22c55e;
+    background-color: #064e3b;
+}
+
+.lc-map-widget .route-option button {
+    margin-top: 10px;
+    padding: 8px 14px;
+    background-color: #3b82f6;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.lc-map-widget .route-option.selected button {
+    background-color: #16a34a;
+}
+
+.lc-map-widget .route-option button:hover {
+    background-color: #60a5fa;
+}
+
+.lc-map-widget #map {
+    height: 500px;
+    width: 100%;
+    border: 2px solid #263b68;
+    border-radius: 10px;
+    background: #0b1220;
+    z-index: 1;
+}
+
+.lc-map-widget.lc-map-compact #map {
+    height: 430px;
+}
+
+/* Keep Leaflet popups, controls, and attributions readable inside dark frontend */
+.lc-map-widget .leaflet-container {
+    font-family: Arial, sans-serif;
+    color: #1e293b;
+}
+
+.lc-map-widget .leaflet-popup-content-wrapper,
+.lc-map-widget .leaflet-popup-tip {
+    background-color: #ffffff;
+    color: #1e293b;
+}
+
+.lc-map-widget .leaflet-popup-content {
+    color: #1e293b;
+    line-height: 1.45;
+}
+
+.lc-map-widget .leaflet-control-attribution a {
+    color: #0078a8;
+}
+
+@media (max-width: 768px) {
+    .lc-map-widget {
+        padding: 16px;
+    }
+
+    .lc-map-controls-bar {
+        padding: 14px;
+    }
+
+    .lc-map-widget #map {
+        height: 400px;
+    }
+
+    .lc-map-widget.lc-map-compact #map {
+        height: 360px;
+    }
+}
+
+@media (max-width: 480px) {
+    .lc-map-widget {
+        padding: 12px;
+    }
+
+    .lc-map-toolbar-actions {
+        width: 100%;
+    }
+
+    .lc-map-reset-btn,
+    .lc-map-standalone-link {
+        flex: 1 1 auto;
+        text-align: center;
+    }
+
+    .lc-map-route-inputs {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .lc-map-widget #destination,
+    .lc-map-widget #findRouteBtn,
+    .lc-map-widget #locationBtn {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .lc-map-widget #map {
+        height: 350px;
+    }
+
+    .lc-map-widget.lc-map-compact #map {
+        height: 320px;
+    }
+}
